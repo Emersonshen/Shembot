@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  botname: MyString
+  string: MyString
+  clientid: MyString
+  string: MyString
+
+two:
+  botname: MyString
+  string: MyString
+  clientid: MyString
+  string: MyString

@@ -1,0 +1,28 @@
+<div>
+  <%= form_tag("authentication/saveUserName", method: "get") do %>
+    <%= label_tag(:userName, "User Name:") %>
+    <%= text_field_tag(:userName, $userName) %>
+    <%= submit_tag("Save") %>
+  <% end %>
+  <%= form_tag("authentication/saveClientId", method: "get") do %>
+    <%= label_tag(:clientID, "Client ID:") %>
+    <%= text_field_tag(:clientID, $clientID) %>
+    <%= submit_tag("Save") %>
+  <% end %>
+  <%= form_tag("authentication/saveClientSecret", method: "get") do %>
+    <%= label_tag(:clientSecret, "Client Secret:") %>
+    <%= password_field_tag :clientSecret, $clientSecret %>
+    <%= submit_tag("Save") %>
+  <% end %>
+
+  <%= form_tag("authentication/saveBotOauth", method: "get") do %>
+    <%= label_tag(:botName, "Bot Name:") %>
+    <%= text_field_tag(:botName, $botName) %>
+    <%= label_tag(:botOauth, "Bot Oauth:") %>
+    <%= password_field_tag(:botOauth, $botOauth) %>
+    <%= submit_tag("Save") %>
+  <% end %>
+</div>
+<div>
+
+</div>

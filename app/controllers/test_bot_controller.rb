@@ -1,0 +1,2 @@
+class TestBotController < ApplicationController
+end

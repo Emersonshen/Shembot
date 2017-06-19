@@ -1,0 +1,17 @@
+window.onload = function(){
+  Twitch.init({clientId : 'zo3b853ebg1ta6dncxue015rbe26jh'},function(erro, status){
+      if(status.authenticated){
+        $('#twitchLogin').css('display': 'none');
+        //Pass Oauth token to Ruby Side
+      }
+    });
+}
+
+function twitchLogin(){
+  Twitch.login({
+      scope: ['chat_login', 'user_read', 'channel_read']
+    });
+}
+function testButton(){
+    alert('Testing');
+}
