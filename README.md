@@ -1,0 +1,2 @@
+# Shembot
+Twitch Chat Bot
