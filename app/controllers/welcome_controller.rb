@@ -7,33 +7,46 @@ class WelcomeController < ApplicationController
   def index
 
   end
-  
+
   def startBot
-    @botThread = Thread.new do
-      bot = Cinch::Bot.new do
+    #render :nothing => true
+    if $botOauth != ''
+      $bot = Cinch::Bot.new do
         configure do |c|
-          c.user = "shembot4"
-          c.nick = ["shembot4"]
+          c.user = "Shembot4"
+          c.nick = ["Shembot4"]
           c.server = "irc.chat.twitch.tv"
           c.channels = ["#shemerson"]
-          c.password = "oauth:#{$oAuthToken}"
+          c.password = "oauth:#{$botOauth}"
           c.plugins.plugins = [Hello]
         end
       end
-      bot.start
-    end
-    if @botThread != NULL
-      return true
+      $botThread = Thread.new do
+        $bot.start
+      end
+      respond_to do |format|
+        format.json { render :json => true }
+      end
+      $botStatus = true
     else
-      return false
+      respond_to do |format|
+        format.json { render :json => false }
+      end
     end
   end
   def stopBot
-    @botThread.kill
-    if @botThread != NULL
-      return true
+    #render :nothing => true
+    if $botThread != nil
+      respond_to do |format|
+        format.json { render :json => true }
+      end
+      $botStatus = false
     else
-      return false
+      respond_to do |format|
+        format.json { render :json => false }
+      end
     end
+    $bot.quit
+    $botThread.kill
   end
 end

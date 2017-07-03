@@ -6,6 +6,9 @@ class CreateBotUsers < ActiveRecord::Migration
       t.string :clientsecret
       t.string :channeluser
       t.string :channelname
+      t.string :redirecturi
+      t.string :botoauth
+      t.string :useroauth
 
       t.timestamps null: false
     end

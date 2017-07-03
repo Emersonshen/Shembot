@@ -7,17 +7,16 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div style='display: none'><%= $clientID %></div>
   <div>
   	<p>Welcome to Shembot</p>
   	<p>A Custom Twitch Bot</p>
   </div>
 
   <div>
-    <ul>
+    <ul class='nav'>
       <li><%= link_to "Authentication", authentication_index_path %></li>
-      <li id='startBot'><a href='#' onclick='startBot()'>Connect</a></li>
-      <li id='stopBot' style='display:none'><a href='#' onclick='stopBot()'>Disconnect</a></li>
+      <li id='startBot' style='display:<%=$botStatus ? 'none' : 'block'%>'><a href='#' onclick='startBot()'>Connect</a></li>
+      <li id='stopBot' style='display:<%=$botStatus ? 'block' : 'none'%>'><a href='#' onclick='stopBot()'>Disconnect</a></li>
       <li><%= link_to "Commands", commands_path%></li>
     </ul>
   </div>

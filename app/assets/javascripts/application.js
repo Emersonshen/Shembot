@@ -15,67 +15,34 @@
 //= require turbolinks
 //= require materialize-sprockets
 //= require welcome
+//= require authentication
 
 
-window.onload(function(){
-  Twitch.init({clientId : $('#clientId').text()},function(error, status){
-      if(status.authenticated){
-        $.ajax({
-          type: 'POST',
-          url: '/welcome/' + Twitch.getToken() + '/saveOauth',
-          success: function(){
-          }
-        });
-        $('#testToken').text(Twitch.getToken());
-      }
-    });
-});
-function twitchLogin(){
-  Twitch.login({
-      scope: ['chat_login', 'user_read', 'channel_read']
-    });
-}
 function startBot(){
-  if(status.authenticated){
-    $.ajax({
-      type: 'GET',
-      url: '/welcome/startBot',
-      success: function(data){
-        if(data){
-          $('#startBot').css('display', 'none');
-          $('#stopBot').css('display', 'block');
-        }
-        //add warning saying the bot hasn't been started yet
-      },
-      error: function(xhr, status, error){
-        //add more error handling
-        alert("An error has occured: \n Make Sure you are logged in.");
-      }
-    });
-  }
-  else{
-    alert("Please Login First");
-  }
+  $.ajax({
+    type: 'GET',
+    url: '/welcome/startBot',
+    success: function(data){
+      //add warning saying the bot hasn't been started yet
+    },
+    error: function(xhr, status, error){
+      //add more error handling
+      alert("An error has occured: \n Please make sure you are logged in.");
+    }
+  });
 }
 function stopBot(){
-  if(status.authenticated){
-    $.ajax({
-      type: 'GET',
-      url: '/welcome/stopBot',
-      success: function(data){
-        if(data){
-          $('#startBot').css('display', 'block');
-          $('#stopBot').css('display', 'none');
-        }
-        //add warning saying the bot hasn't been started yet
-      },
-      error: function(xhr, status, error){
-        //add more error handling
-        alert("An error has occured: \n Make Sure you are logged in.");
-      }
-    });
-  }
-
+  $.ajax({
+    type: 'GET',
+    url: '/welcome/stopBot',
+    success: function(data){
+      //add warning saying the bot hasn't been started yet
+    },
+    error: function(xhr, status, error){
+      //add more error handling
+      alert("An error has occured: \n Please make sure you are logged in.");
+    }
+  });
 }
 /*function twitchLogout(){
   Twitch.logout(function(error){});

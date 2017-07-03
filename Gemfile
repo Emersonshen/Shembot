@@ -28,6 +28,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'cinch'
 
+gem 'addressable'
+
 # gem 'bootstrap-sass'
 # gem 'autoprefixer-rails'
 # Use Unicorn as the app server

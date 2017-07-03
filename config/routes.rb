@@ -66,11 +66,13 @@ Rails.application.routes.draw do
 
   resources :authentication, only: [:index] do
     collection do
-      get 'saveUserName'
-      get 'saveClientId'
-      get 'saveClientSecret'
-      get 'saveUserOauth'
-      get 'saveBotOauth'
+      get 'saveUserInfo'
+      get 'getBotOauth'
+      get 'getUserOauth'
+    end
+    member do
+      post 'saveUserOauth'
+      post 'saveBotOauth'
     end
   end
 

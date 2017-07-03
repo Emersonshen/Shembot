@@ -19,6 +19,9 @@ ActiveRecord::Schema.define(version: 20170616040500) do
     t.string   "clientsecret"
     t.string   "channeluser"
     t.string   "channelname"
+    t.string   "redirecturi"
+    t.string   "botoauth"
+    t.string   "useroauth"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
