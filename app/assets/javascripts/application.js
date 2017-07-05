@@ -16,6 +16,7 @@
 //= require materialize-sprockets
 //= require welcome
 //= require authentication
+//= require points
 
 
 function startBot(){

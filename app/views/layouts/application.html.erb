@@ -14,9 +14,10 @@
 
   <div>
     <ul class='nav'>
-      <li><%= link_to "Authentication", authentication_index_path %></li>
       <li id='startBot' style='display:<%=$botStatus ? 'none' : 'block'%>'><a href='#' onclick='startBot()'>Connect</a></li>
       <li id='stopBot' style='display:<%=$botStatus ? 'block' : 'none'%>'><a href='#' onclick='stopBot()'>Disconnect</a></li>
+      <li><%= link_to "Authentication", authentication_index_path %></li>
+      <li><%= link_to "Points", points_path %></li>
       <li><%= link_to "Commands", commands_path%></li>
     </ul>
   </div>

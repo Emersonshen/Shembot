@@ -30,6 +30,8 @@ gem 'cinch'
 
 gem 'addressable'
 
+gem 'will_paginate', '~> 3.1.1'
+
 # gem 'bootstrap-sass'
 # gem 'autoprefixer-rails'
 # Use Unicorn as the app server

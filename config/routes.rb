@@ -76,6 +76,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :points, only: [:index] do
+    collection do
+      get 'fillFollowers'
+    end
+  end
+
   resources :testbot, only: [:index]
 
   resources :commands

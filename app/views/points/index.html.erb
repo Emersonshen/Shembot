@@ -1,0 +1,20 @@
+<div>
+  <a href='#' onclick='getFollows()'>Get Followers</a>
+</div>
+<div>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Points</th>
+      </tr>
+    </thead>
+    <% @followers.each do |f| %>
+    <tr>
+      <td class='name'><%= f.name %></td>
+      <td class='points'><%= f.points %></td>
+    </tr>
+    <% end %>
+  </table>
+  <%= will_paginate @followers%>
+</div>

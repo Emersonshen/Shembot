@@ -68,7 +68,9 @@ class AuthenticationController < ApplicationController
     render :nothing => true
     @user = BotUser.find_by(channeluser: $userName)
     @user.useroauth = params[:id]
-    $userOauth = params[:id]
+    if @user.save
+      $userOauth = params[:id]
+    end
   end
 
   def getBotOauth
@@ -79,7 +81,9 @@ class AuthenticationController < ApplicationController
     render :nothing => true
     @user = BotUser.find_by(channeluser: $userName)
     @user.botoauth = params[:id]
-    $botOauth = params[:id]
+    if @user.save
+      $botOauth = params[:id]
+    end
   end
 
 end
