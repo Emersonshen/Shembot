@@ -1,13 +1,9 @@
 require 'cgi'
 class AuthenticationController < ApplicationController
-  # $botauthUrl = "https://api.twitch.tv/kraken/oauth2/authorize?client_id=#{$clientID}&redirect_uri=#{CGI.escape($redirectUri)}&response_type=token&scope=chat_login"
-  # $channelauthUrl = "https://api.twitch.tv/kraken/oauth2/authorize?client_id=#{$clientID}&redirect_uri=#{CGI.escape($redirectUri)}&response_type=token&scope=chat_login+channel_read+user_read+channel_editor"
-  @test = ""
+
   def index
   end
 
-  #TODO: Streamline user data entry into a single form with persistent data,
-  #and two separate forms for Oauth generationgs
   def saveUserInfo
     redirect_to :back
     #check if the user exists in the database
@@ -65,6 +61,7 @@ class AuthenticationController < ApplicationController
   end
 
   def saveUserOauth
+    #save the Oauth for Accessing User Information to the database
     render :nothing => true
     @user = BotUser.find_by(channeluser: $userName)
     @user.useroauth = params[:id]
@@ -78,6 +75,7 @@ class AuthenticationController < ApplicationController
   end
 
   def saveBotOauth
+    #save the Oauth for Bot to access the Chat
     render :nothing => true
     @user = BotUser.find_by(channeluser: $userName)
     @user.botoauth = params[:id]

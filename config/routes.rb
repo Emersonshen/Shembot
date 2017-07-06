@@ -79,6 +79,7 @@ Rails.application.routes.draw do
   resources :points, only: [:index] do
     collection do
       get 'fillFollowers'
+      get 'savePointsConfig'
     end
   end
 

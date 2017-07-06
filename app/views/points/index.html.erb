@@ -1,4 +1,15 @@
 <div>
+  <%= form_tag savePointsConfig_points_path, method: "get" do %>
+    <%= label_tag :name, "Point Name:"  %>
+    <%= text_field_tag :name, $name %>
+    <%= label_tag :points, "Points per Period:" %>
+    <%= text_field_tag :points, $points %>
+    <%= label_tag :period, "Time Period:" %>
+    <%= text_field_tag :period, $period %>
+    <%= submit_tag "Save"  %>
+  <% end %>
+</div>
+<div>
   <a href='#' onclick='getFollows()'>Get Followers</a>
 </div>
 <div>
