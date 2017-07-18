@@ -2,6 +2,18 @@ require 'cgi'
 class AuthenticationController < ApplicationController
 
   def index
+    if BotUser.exists?(1)
+      @userInfo = BotUser.find(1)
+      @userName = @userInfo.channeluser
+      @clientID = @userInfo.clientid
+      @clientsecret = @userInfo.clientsecret
+      @botName = @userInfo.botname
+      @redirectUri = @userInfo.redirecturi
+      @botOauth = @userInfo.botoauth
+      @userOauth = @userInfo.useroauth
+      @@botauthUrl = "https://api.twitch.tv/kraken/oauth2/authorize?client_id=#{@clientID}&redirect_uri=#{CGI.escape(@redirectUri)}&response_type=token&scope=chat_login"
+      @@channelauthUrl = "https://api.twitch.tv/kraken/oauth2/authorize?client_id=#{@clientID}&redirect_uri=#{CGI.escape(@redirectUri)}&response_type=token&scope=chat_login+channel_read+user_read+channel_editor"
+    end
   end
 
   def saveUserInfo
@@ -15,15 +27,15 @@ class AuthenticationController < ApplicationController
       @user.clientid = params[:clientID]
       @user.clientsecret = params[:clientSecret]
       @user.botname = params[:botName]
-      @user.redirecturi = CGI.escape(params[:redirectUri])
+      @user.redirecturi = params[:redirectUri]
       if @user.save
-        $userName = @user.channeluser
-        $clientID = @user.clientid
-        $clientsecret = @user.clientsecret
-        $botName = @user.botname
-        $redirectUri = @user.redirecturi
-        $botOauth = @user.botoauth
-        $userOauth = @user.useroauth
+        @userName = @user.channeluser
+        @clientID = @user.clientid
+        @clientsecret = @user.clientsecret
+        @botName = @user.botname
+        @redirectUri = @user.redirecturi
+        @botOauth = @user.botoauth
+        @userOauth = @user.useroauth
       end
     else
       #Find the user and update field to DB data
@@ -40,47 +52,47 @@ class AuthenticationController < ApplicationController
         @user.botname = params[:botName]
       end
       if params[:redirectUri] != ''
-        @user.redirecturi = CGI.escape(params[:redirectUri])
+        @user.redirecturi = params[:redirectUri]
       end
       if @user.save
-        $userName = @user.channeluser
-        $clientID = @user.clientid
-        $clientsecret = @user.clientsecret
-        $botName = @user.botname
-        $redirectUri = CGI.unescape(@user.redirecturi)
-        $botOauth = @user.botoauth
-        $userOauth = @user.useroauth
+        @userName = @user.channeluser
+        @clientID = @user.clientid
+        @clientsecret = @user.clientsecret
+        @botName = @user.botname
+        @redirectUri = @user.redirecturi
+        @botOauth = @user.botoauth
+        @userOauth = @user.useroauth
       end
-      $botauthUrl = "https://api.twitch.tv/kraken/oauth2/authorize?client_id=#{$clientID}&redirect_uri=#{CGI.escape($redirectUri)}&response_type=token&scope=chat_login"
-      $channelauthUrl = "https://api.twitch.tv/kraken/oauth2/authorize?client_id=#{$clientID}&redirect_uri=#{CGI.escape($redirectUri)}&response_type=token&scope=chat_login+channel_read+user_read+channel_editor"
+      @@botauthUrl = "https://api.twitch.tv/kraken/oauth2/authorize?client_id=#{@clientID}&redirect_uri=#{CGI.escape(@redirectUri)}&response_type=token&scope=chat_login"
+      @@channelauthUrl = "https://api.twitch.tv/kraken/oauth2/authorize?client_id=#{@clientID}&redirect_uri=#{CGI.escape(@redirectUri)}&response_type=token&scope=chat_login+channel_read+user_read+channel_editor"
     end
   end
 
   def getUserOauth
-    redirect_to $channelauthUrl
+    redirect_to @@channelauthUrl
   end
 
   def saveUserOauth
     #save the Oauth for Accessing User Information to the database
     render :nothing => true
-    @user = BotUser.find_by(channeluser: $userName)
+    @user = BotUser.find(1)
     @user.useroauth = params[:id]
     if @user.save
-      $userOauth = params[:id]
+      @userOauth = params[:id]
     end
   end
 
   def getBotOauth
-    redirect_to $botauthUrl
+    redirect_to @@botauthUrl
   end
 
   def saveBotOauth
     #save the Oauth for Bot to access the Chat
     render :nothing => true
-    @user = BotUser.find_by(channeluser: $userName)
+    @user = BotUser.find(1)
     @user.botoauth = params[:id]
     if @user.save
-      $botOauth = params[:id]
+      @botOauth = params[:id]
     end
   end
 

@@ -4,27 +4,27 @@
   </div>
   <%= form_tag saveUserInfo_authentication_index_path, method: "get" do %>
     <%= label_tag :userName, "User Name:"  %>
-    <%= text_field_tag :userName, $userName %>
+    <%= text_field_tag :userName, @userName %>
     <%= label_tag :clientID, "Client ID:" %>
-    <%= text_field_tag :clientID, $clientID %>
+    <%= text_field_tag :clientID, @clientID %>
     <%= label_tag :clientSecret, "Client Secret:" %>
-    <%= password_field_tag :clientSecret, $clientSecret %>
+    <%= password_field_tag :clientSecret, @clientSecret %>
     <%= label_tag :redirectUri, "Redirect Uri:" %>
-    <%= text_field_tag :redirectUri, $redirectUri %>
+    <%= text_field_tag :redirectUri, @redirectUri %>
     <%= label_tag :botName, "Bot Name:"  %>
-    <%= text_field_tag :botName, $botName  %>
+    <%= text_field_tag :botName, @botName  %>
     <%= submit_tag "Save"  %>
   <% end %>
 
   <%= form_tag getBotOauth_authentication_index_path, method: "get"  do %>
     <%= label_tag :botOauth, "Bot Oauth:"  %>
-    <%= text_field_tag :botOauth, $botOauth, disabled: true  %>
+    <%= text_field_tag :botOauth, @botOauth, disabled: true  %>
     <%= submit_tag "Get"  %>
   <% end %>
 
   <%= form_tag getUserOauth_authentication_index_path, method: "get"  do %>
     <%= label_tag :userOauth, "User Oauth:"  %>
-    <%= text_field_tag :userOauth, $userOauth, disabled: true  %>
+    <%= text_field_tag :userOauth, @userOauth, disabled: true  %>
     <%= submit_tag "Get"  %>
   <% end %>
 </div>

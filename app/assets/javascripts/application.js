@@ -25,6 +25,7 @@ function startBot(){
     url: '/welcome/startBot',
     success: function(data){
       //add warning saying the bot hasn't been started yet
+      
     },
     error: function(xhr, status, error){
       //add more error handling

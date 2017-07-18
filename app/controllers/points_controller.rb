@@ -5,7 +5,10 @@ class PointsController < ApplicationController
 
   def index
     @followers = Follower.search(params[:page])
-    puts @followers
+    config = PointConfig.find(1)
+    @name = config.name
+    @points = config.points
+    @period = config.period
   end
 
   def savePointsConfig
@@ -28,9 +31,9 @@ class PointsController < ApplicationController
       end
     end
     if @config.save
-      $name = @config.name
-      $points = @config.points
-      $period = @config.period
+      @name = @config.name
+      @points = @config.points
+      @period = @config.period
     end
   end
 
@@ -54,7 +57,7 @@ class PointsController < ApplicationController
         if !Follower.exists?(name: f['user']['display_name'])
           follower = Follower.new
           follower.name = f['user']['display_name']
-          follower.points = 0
+          follower.points = 100
           follower.save
         end
       end
