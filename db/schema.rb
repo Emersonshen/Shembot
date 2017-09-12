@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170706080858) do
+ActiveRecord::Schema.define(version: 20170912190455) do
 
   create_table "bot_users", force: :cascade do |t|
     t.string   "botname"
@@ -26,9 +26,18 @@ ActiveRecord::Schema.define(version: 20170706080858) do
     t.datetime "updated_at",   null: false
   end
 
+  create_table "commands", force: :cascade do |t|
+    t.string   "name"
+    t.text     "text"
+    t.integer  "args"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "followers", force: :cascade do |t|
     t.string   "name"
     t.integer  "points"
+    t.boolean  "ismod"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

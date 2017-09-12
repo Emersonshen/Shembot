@@ -85,7 +85,12 @@ Rails.application.routes.draw do
 
   resources :testbot, only: [:index]
 
-  resources :commands
+  resources :commands, only: [:index] do
+    collection do
+      get 'addCommand'
+      get 'editCommand'
+    end
+  end
 
 	root 'welcome#index'
 end

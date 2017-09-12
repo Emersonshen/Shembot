@@ -19,7 +19,7 @@ class WelcomeController < ApplicationController
           c.server = "irc.chat.twitch.tv"
           c.channels = ["##{$userName.downcase}"]
           c.password = "oauth:#{$botOauth}"
-          c.plugins.plugins = [Hello, Points]
+          c.plugins.plugins = [Hello, Commands]
         end
       end
       $botThread = Thread.new do
@@ -34,17 +34,17 @@ class WelcomeController < ApplicationController
         format.json { render :json => false }
       end
     end
-    $tracker = Tracker.new :user => $userName, :type => "point", :clientid => $clientID, :userOauth => $userOath
-    $trackerThread = Thread.new do
-      $tracker.start
-    end
+    # $tracker = Tracker.new :user => $userName, :type => "point", :clientid => $clientID, :userOauth => $userOath
+    # $trackerThread = Thread.new do
+    #   $tracker.start
+    # end
   end
 
   def stopBot
     #render :nothing => true
     $botStatus = false
-    $tracker.quit
-    $trackerThread.kill
+    # $tracker.quit
+    # $trackerThread.kill
     $bot.quit
     $botThread.kill
   end

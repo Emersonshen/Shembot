@@ -3,6 +3,7 @@ class CreateFollowers < ActiveRecord::Migration
     create_table :followers do |t|
       t.string :name
       t.integer :points
+      t.boolean :ismod
 
       t.timestamps null: false
     end

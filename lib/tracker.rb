@@ -30,15 +30,20 @@ class Tracker
       end
       response = JSON.parse @res.body
       chatters = response['chatters']
-      puts "Why is"
+      puts "Mods"
       chatters['moderators'].each do |v|
         if Follower.exists?(["lower(name) = ?", v.downcase])
-          puts "This"
           chatter = Follower.where('lower(name) = ?', v.downcase)
-          chatter.points += @config.points
+          puts "found"
+          puts @config.points
+          points = chatter.points + @config.points
+          chatter.points = points
+          puts "increased"
           chatter.save
+          puts "saved"
         end
       end
+      puts "Staff"
       chatters['staff'].each do |v|
         if Follower.exists?(["lower(name) = ?", v.downcase])
           chatter = Follower.where('lower(name) = ?', v.downcase)
@@ -46,6 +51,7 @@ class Tracker
           chatter.save
         end
       end
+      puts "admins"
       chatters['admins'].each do |v|
         if Follower.exists?(["lower(name) = ?", v.downcase])
           chatter = Follower.where('lower(name) = ?', v.downcase)
@@ -53,6 +59,7 @@ class Tracker
           chatter.save
         end
       end
+      puts "Global Mods"
       chatters['global_mods'].each do |v|
         if Follower.exists?(["lower(name) = ?", v.downcase])
           chatter = Follower.where('lower(name) = ?', v.downcase)
@@ -60,9 +67,10 @@ class Tracker
           chatter.save
         end
       end
+      puts "Viewers"
       chatters['viewers'].each do |v|
         if Follower.exists?(["lower(name) = ?", v.downcase])
-          puts "Not Working"
+          #puts "Not Working"
           chatter = Follower.where('lower(name) = ?', v.downcase)
           chatter.points += @config.points
           chatter.save

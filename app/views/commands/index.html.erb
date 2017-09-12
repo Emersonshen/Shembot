@@ -1,0 +1,31 @@
+<div></div>
+<div>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Message</th>
+        <td>Number of Arguments</td>
+      </tr>
+    </thead>
+    <% @commands.each do |c| %>
+    <tr>
+      <td><%= c.name %></td>
+      <td><%= c.text %></td>
+      <td><%= c.args %></td>
+    </tr>
+    <% end %>
+  </table>
+  <%= will_paginate @commands%>
+</div>
+<div>
+  <%= form_tag addCommand_commands_path, method: "get" do %>
+      <%= label_tag :commandName, "Command Name:"  %>
+      <%= text_field_tag :commandName, @commandName %>
+      <%= label_tag :commandText, "Command Message:" %>
+      <%= text_field_tag :commandText, @commandText %>
+      <%= label_tag :args, "Number of Arguments:" %>
+      <%= text_field_tag :args, @args %>
+      <%= submit_tag "Save"  %>
+    <% end %>
+</div>

@@ -5,10 +5,12 @@ class PointsController < ApplicationController
 
   def index
     @followers = Follower.search(params[:page])
-    config = PointConfig.find(1)
-    @name = config.name
-    @points = config.points
-    @period = config.period
+    if(PointConfig.exists?(1))
+      config = PointConfig.find(1)
+      @name = config.name
+      @points = config.points
+      @period = config.period
+    end
   end
 
   def savePointsConfig
@@ -39,28 +41,37 @@ class PointsController < ApplicationController
 
   def fillFollowers
     render :nothing => true
-    @offset = 0
+    offset = 0
+    puts $userName
     loop do
-      @getfollowsUrl = URI.parse("https://api.twitch.tv/kraken/channels/#{$userName.downcase}/follows?limit=100&offset=#{@offset}")
-      @res = Net::HTTP.start(@getfollowsUrl.host, @getfollowsUrl.port,
-                              :use_ssl => @getfollowsUrl.scheme == 'https') do |http|
-        req = Net::HTTP::Get.new @getfollowsUrl
+      @uri = URI.parse("https://api.twitch.tv/kraken/channels/#{$userName.downcase}/follows?limit=100&offset=#{offset}")
+      @res = Net::HTTP.start(@uri.host, @uri.port,
+                              :use_ssl => @uri.scheme == 'https') do |http|
+        req = Net::HTTP::Get.new @uri
         req['Client-ID'] = $clientID
         req['Authorization'] = "OAuth #{$userOauth}"
         http.request req
       end
       response = JSON.parse @res.body
       follows = response['follows']
-      break if follows.any?
-      @offset += 100
+      clear = false
+      if !follows.any?
+        clear = true
+        break
+      end
       follows.each do |f|
         if !Follower.exists?(name: f['user']['display_name'])
           follower = Follower.new
           follower.name = f['user']['display_name']
           follower.points = 100
           follower.save
+        else
+          clear = true
+          break
         end
       end
+      break if clear
+      offset += 100
     end
   end
 end
